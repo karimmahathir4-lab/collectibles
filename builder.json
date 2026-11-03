@@ -1,0 +1,22 @@
+{
+  "project": "HandCollect",
+  "platform": "ios",
+  "github": {
+    "owner": "karimmahathir4-lab",
+    "repo": "collectibles"
+  },
+  "provider": "github",
+  "codemagic": {},
+  "bitrise": {},
+  "ios": {
+    "path": "ios",
+    "bundleId": "com.craft.handcollect"
+  },
+  "flutter": {
+    "version": "git status",
+    "watch": {}
+  },
+  "reactNative": {},
+  "kmp": {},
+  "mobai": {}
+}
