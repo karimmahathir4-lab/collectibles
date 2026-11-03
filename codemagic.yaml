@@ -1,0 +1,63 @@
+workflows:
+  ios-testflight:
+    name: "HandCraft Collectibles"
+    max_build_duration: 60
+    instance_type: mac_mini_m4
+
+    # This must match the App Store Connect integration name in Codemagic.
+    integrations:
+      app_store_connect: coding
+
+    environment:
+      flutter: stable
+      # Xcode 27.1 includes the iOS SDK and simulator support needed to build
+      # and inspect the app on iPhone Duo.
+      xcode: "27.1"
+      cocoapods: default
+      vars:
+        BUNDLE_ID: com.craft.handcollect
+      ios_signing:
+        # These are the reference names of the profile and certificate uploaded
+        # under Codemagic Team settings > codemagic.yaml settings > Code signing identities.
+        provisioning_profiles:
+          - CraftProf
+        certificates:
+          - CraftCer
+
+    scripts:
+      - name: Get Flutter packages
+        script: flutter pub get
+
+      - name: Install CocoaPods
+        script: |
+          cd ios
+          pod install
+
+      - name: Set up code signing
+        script: xcode-project use-profiles
+
+      - name: Build signed Flutter IPA
+        script: |
+          BUILD_NUMBER="${PROJECT_BUILD_NUMBER:-1}"
+          flutter build ipa --release \
+            --build-name=1.0.0 \
+            --build-number="$BUILD_NUMBER" \
+            --export-options-plist="$HOME/export_options.plist"
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - build/ios/archive/*.xcarchive
+      - /tmp/xcodebuild_logs/*.log
+
+    publishing:
+      email:
+        recipients:
+          - karimmahathir4@gmail.com
+        notify:
+          success: true
+          failure: true
+
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        # Add submit_to_app_store: true when the app record and store listing are ready.
