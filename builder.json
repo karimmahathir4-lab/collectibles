@@ -10,10 +10,11 @@
   "bitrise": {},
   "ios": {
     "path": "ios",
-    "bundleId": "com.craft.handcollect"
+    "bundleId": "com.craft.handcollect",
+    "configuration": "Release"
   },
   "flutter": {
-    "version": "git status",
+    "version": "3.35.6",
     "watch": {}
   },
   "reactNative": {},
