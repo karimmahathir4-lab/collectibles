@@ -53,6 +53,8 @@
 	<string>HandCraft Collectibles can save photos or export reports to your photo library.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>HandCraft Collectibles uses Face ID to protect your private collection.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location details for collection items are entered by you. HandCraft Collectibles does not access your device location.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 </dict>
